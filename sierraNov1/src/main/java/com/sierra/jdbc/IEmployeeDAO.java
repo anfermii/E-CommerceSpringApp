@@ -14,4 +14,5 @@ public interface IEmployeeDAO {
 	int addEmployeesWithMap(int key, Employee emp);
 	Employee updateEmployeeSalaryWithMap(int eid, double salary);
 	Properties getEmployeesWithProperties();
+	boolean logincheck(int empID, String password);
 }

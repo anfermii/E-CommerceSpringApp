@@ -60,7 +60,7 @@ public class EmployeeDAO implements IEmployeeDAO{
 			/*Statement statement=connection.createStatement();
 			//step4:
 			recordsInserted =statement.executeUpdate("insert into EMPLOYEE(EMP_ID, EMPNAME, SALARY, PASSWORD, DEPT_ID) values("+emp.getEmpID()+",'"+emp.getName()+"',"+emp.getSalary()+",'"+emp.getPassword()+"',"+emp.getDeptID()+")");
-		
+		 */
 			//step3:
 			PreparedStatement prepareStatement = connection.prepareStatement("insert into EMPLOYEE(EMP_ID, EMPNAME, SALARY, PASSWORD,DEPT_ID) values(?,?,?,?,?)");
 			prepareStatement.setInt(1, emp.getEmpID());
@@ -69,14 +69,15 @@ public class EmployeeDAO implements IEmployeeDAO{
 			prepareStatement.setString(4, emp.getPassword());
 			prepareStatement.setInt(5, emp.getDeptID());
 			
-			recordsInserted=prepareStatement.executeUpdate(); //step4 */
-			CallableStatement callableStatement = connection.prepareCall("{CALL myProcedure(?,?,?,?,?)}");
+			recordsInserted=prepareStatement.executeUpdate(); //step4
+			
+			/*CallableStatement callableStatement = connection.prepareCall("{CALL myProcedure(?,?,?,?,?)}");
 			callableStatement.setInt(1, emp.getEmpID());      //step3
 			callableStatement.setString(2, emp.getName());
 			callableStatement.setDouble(3, emp.getSalary());
 			callableStatement.setString(4, emp.getPassword());
 			callableStatement.setInt(5, emp.getDeptID());
-			recordsInserted=callableStatement.executeUpdate();  //step4
+			recordsInserted=callableStatement.executeUpdate();  //step4 */
 			 
 		
 			connection.close();  //step5
@@ -104,6 +105,7 @@ public class EmployeeDAO implements IEmployeeDAO{
 				prepareStatement.setInt(5, employee.getDeptID());
 				recordsList.add(prepareStatement.executeUpdate()); 
 			}
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,6 +160,26 @@ public class EmployeeDAO implements IEmployeeDAO{
 	public Properties getEmployeesWithProperties() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean logincheck(int empID, String password) {
+		Connection connection=DBUtil.getDBConnection();
+		boolean check=false;
+		try {
+			PreparedStatement prepareStatement= connection.prepareStatement("select * from EMPLOYEE where EMP_ID=? and PASSWORD=?");
+			prepareStatement.setInt(1, empID);
+			prepareStatement.setString(2, password);
+			
+			ResultSet resultSet = prepareStatement.executeQuery();
+			if(resultSet.next()) {
+				check=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return check;
 	}
 
 }

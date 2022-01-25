@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com//w3css/4/w3.css"/>
+<meta charset="ISO-8859-1">
+<title>Customer LogIn Registration</title>
+</head>
+<body>
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+     <h3 class="w3-bar-item">Customer Menu</h3>
+      <a th:href="@{/ecomm/cust}" class="w3-bar-item w3-button">Customer Registration</a> 
+      <a th:href="@{/ecomm/login}" class="w3-bar-item w3-button">Login</a>
+      <a th:href="customer.html" class="w3-bar-item w3-button">Customer</a>
+      <a th:href="@{/ecomm/login}" class="w3-bar-item w3-button">Logout</a>
+ </div>
+ <div class="w3-container" style="margin-left:20%">
+  <!--<form class="w3-container" th:action="@{/ecomm/login}" th:object=${clogin} method="post">  -->
+  <form class="w3-container" action="eCommerceApplication"  method="post"> 
+    <h2 class="w3-blue w3-center">Customer Login</h2>
+    <div class="">
+     <label class="w3-hover-text-yellow">Customer Id:</label>
+     <input class="w3-input"  type="number" name="cust_Id" />
+    </div>
+    <div class="">
+     <label>Email:</label>
+     <input class="w3-input " type="email" name="email"  />
+    </div>
+    
+    <div class="w3-mobile w3-center">
+     <button class="w3-btn-w3-green w3-round-xlarge" type="submit">Login</button>
+     <button class="w3-button-w3-red w3-round-xlarge" type="reset">Clear</button>
+    </div>
+   </form>
+ </div> 
+</body>
+</html>
